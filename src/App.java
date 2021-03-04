@@ -2,7 +2,6 @@
 // CISC 3598 
 
 import java.io.FileInputStream;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
