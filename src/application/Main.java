@@ -11,25 +11,111 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.io.FileInputStream; 
 import java.io.FileNotFoundException; 
-import javafx.scene.Group; 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class Main extends Application {
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws FileNotFoundException {
 		try {
-
+			// BestBuy Logo Image
 			Image bbLogo = new Image(new FileInputStream("src/img/bestbuy.png"));
-			ImageView imageView = new ImageView(bbLogo);
-			imageView.setX(50);
-			imageView.setY(25);
-			imageView.setFitHeight(100);
-			imageView.setFitWidth(150);
-			imageView.setPreserveRatio(true);
+			ImageView logoView = new ImageView(bbLogo);
+			logoView.setX(50);
+			logoView.setY(25);
+			logoView.setFitHeight(100);
+			logoView.setFitWidth(150);
+			logoView.setPreserveRatio(true);
 
+			// Item1 (RTX 3080) Image, Price Label, Add to Cart button
+			Image item1 = new Image(new FileInputStream("src/img/geforce-rtx-3080.png"));
+			ImageView item1View = new ImageView(item1);
+			item1View.setX(50);
+			item1View.setY(25);
+			item1View.setFitHeight(100);
+			item1View.setFitWidth(150);
+			item1View.setPreserveRatio(true);
+			Label item1Price = new Label("Nvidia RTX 3080\n$699.99");
+
+			Button addToCart1 = new Button("Add to Cart");
+			addToCart1.setOnAction(new EventHandler<ActionEvent>()
+	        {
+	            @Override public void handle(ActionEvent e)
+	            {
+	            	 // Add to Cart button
+                     // blank for now
+	            }
+	        });
+
+			// Item2 (GTX 1660 SUPER) Image, Price Label, Add to Cart button
+			Image item2 = new Image(new FileInputStream("src/img/geforce-gtx-1660-super.png"));
+			ImageView item2View = new ImageView(item2);
+			item2View.setX(75);
+			item2View.setY(50);
+			item2View.setFitHeight(100);
+			item2View.setFitWidth(200);
+			item2View.setPreserveRatio(true);
+			Label item2Price = new Label("MSI GTX 1660 SUPER\n$269.99");
+
+			Button addToCart2 = new Button("Add to Cart");
+			addToCart2.setOnAction(new EventHandler<ActionEvent>()
+	        {
+	            @Override public void handle(ActionEvent e)
+	            {
+	            	 // Add to Cart button
+                     // blank for now
+	            }
+	        });
+
+			// Item3 (Radeon RX590) Image, Price Label, Add to Cart button
+			Image item3 = new Image(new FileInputStream("src/img/radeon_rx590.png"));
+			ImageView item3View = new ImageView(item3);
+			item3View.setX(75);
+			item3View.setY(50);
+			item3View.setFitHeight(100);
+			item3View.setFitWidth(200);
+			item3View.setPreserveRatio(true);
+			Label item3Price = new Label("Radeon RX590\n$299.99");
+
+			Button addToCart3 = new Button("Add to Cart");
+			addToCart3.setOnAction(new EventHandler<ActionEvent>()
+	        {
+	            @Override public void handle(ActionEvent e)
+	            {
+	            	 // Add to Cart button
+                     // blank for now
+	            }
+	        });
+
+			// Item4 (13-inch MacBook Pro) Image, Price Label, Add to Cart button
+			Image item4 = new Image(new FileInputStream("src/img/macbook-pro.png"));
+			ImageView item4View = new ImageView(item4);
+			item4View.setX(75);
+			item4View.setY(50);
+			item4View.setFitHeight(100);
+			item4View.setFitWidth(200);
+			item4View.setPreserveRatio(true);
+			Label item4Price = new Label("13-inch MacBook Pro\n$1299.99");
+
+			Button addToCart4 = new Button("Add to Cart");
+			addToCart4.setOnAction(new EventHandler<ActionEvent>()
+	        {
+	            @Override public void handle(ActionEvent e)
+	            {
+	            	 // Add to Cart button
+                     // blank for now
+	            }
+	        });
+
+			// TextFields & Labels
 			TextField searchBar = new TextField();
+			Label filter = new Label("Filter: ");
+			Label price = new Label("Price: ");
+			Label lowtohigh = new Label("Low to High: ");
+			Label hightolow = new Label("High to Low: ");
+			Label clock = new Label("Current time:\nMM-dd-yyyy HH.mm.ss");
 			
+			// Buttons
 			Button login = new Button("Login");
 			login.setOnAction(new EventHandler<ActionEvent>()
 	        {
@@ -50,15 +136,32 @@ public class Main extends Application {
 	            }
 	        });
 			
-
+			// GridPane setup
 			GridPane root = new GridPane();
-			root.add(imageView, 0, 0);
+			root.add(logoView, 0, 0);
 			root.add(new Label(), 0, 0);
 			root.add(searchBar, 1, 0);
 			root.add(login, 2, 0);
 			root.add(cart, 3, 0);
+			root.add(filter, 0, 1);
+			root.add(price, 0, 2);
+			root.add(lowtohigh, 0, 3);
+			root.add(hightolow, 0, 4);
+			root.add(clock, 0, 5);
+			root.add(item1View, 1, 1);
+			root.add(item1Price, 2, 1);
+			root.add(addToCart1, 3, 1);
+			root.add(item2View, 1, 2);
+			root.add(item2Price, 2, 2);
+			root.add(addToCart2, 3, 2);
+			root.add(item3View, 1, 3);
+			root.add(item3Price, 2, 3);
+			root.add(addToCart3, 3, 3);
+			root.add(item4View, 1, 4);
+			root.add(item4Price, 2, 4);
+			root.add(addToCart4, 3, 4);
 
-
+			// Scene setup
 			Scene scene = new Scene(root, 1500, 750);
 			primaryStage.setScene(scene);
 			primaryStage.show();
@@ -69,8 +172,6 @@ public class Main extends Application {
 		}
 	}
 
-
-	
 	public static void main(String[] args) {
 		launch(args);
 	}
