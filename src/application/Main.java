@@ -22,8 +22,6 @@ public class Main extends Application {
 	TextField clock;
 	
 	@Override
-	
-	
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		try {
 			
