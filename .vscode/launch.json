@@ -5,12 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-        "type": "java",
-        "name": "Launch App",
-        "request": "launch",
-        "vmArgs": "--module-path C:/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
-        "mainClass": "application.Main",
-        "projectName": "BestBuyClone_74cdb786"
+      "type": "java",
+      "name": "Launch Main",
+      "request": "launch",
+      "vmArgs": "--module-path C:/javafx-sdk-11.0.2/lib --add-modules javafx.controls,javafx.fxml",
+      "mainClass": "application.Main",
+      "projectName": "BestBuyClone"
     }
-]
+  ]
 }
