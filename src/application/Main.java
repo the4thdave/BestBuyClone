@@ -1,5 +1,5 @@
 package application;
-	
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -17,6 +17,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.util.Date;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.stage.*;
+import javafx.scene.layout.*;
+
 
 public class Main extends Application {
 	TextField clock;
@@ -24,6 +28,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		try {
+
+			fileIO Fileio = new fileIO();
 			
 			//clock text area
 	        clock = new TextField();
@@ -131,8 +137,7 @@ public class Main extends Application {
 			VBox vbox = new VBox (20, filter, price, lowtohigh, hightolow);
 			vbox.setPadding(new Insets(50, 20, 50, 20)); 
 			vbox.setStyle("-fx-background-color: white");
-			
-			
+
 			// Buttons
 			Button login = new Button("Login");
 			login.setMaxSize(100, 20);
@@ -152,8 +157,90 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
-	            	 // Cart button
-                     // blank for now
+
+								final Stage dialog = new Stage();
+								dialog.initModality(Modality.APPLICATION_MODAL);
+								dialog.initOwner(primaryStage);
+								dialog.setTitle("Cart");
+
+								Button exitCart = new Button("Exit From Cart");
+
+								Button checkout = new Button("Checkout");
+
+								exitCart.setOnAction(new EventHandler<ActionEvent>()
+									{
+											@Override public void handle(ActionEvent e)
+											{
+												dialog.close();
+											}
+									});
+								
+								checkout.setOnAction(new EventHandler<ActionEvent>()
+								{
+										@Override public void handle(ActionEvent e)
+										{
+											Fileio.wrTransactionData("Checkout Complete");
+										}
+								});
+
+								HBox dialogVbox = new HBox(20);
+
+								dialogVbox.setAlignment(Pos.CENTER);
+								dialogVbox.getChildren().addAll(exitCart, checkout);
+								dialogVbox.setStyle("-fx-background-color: lightblue");
+
+								Scene dialogScene = new Scene(dialogVbox, 300, 200);
+	
+								dialog.setScene(dialogScene);
+								dialog.show();
+	            }
+	        });
+
+
+			Button exit = new Button("Exit");
+			exit.setStyle("-fx-background-color: red");
+			exit.setMaxSize(100, 20);
+			exit.setOnAction(new EventHandler<ActionEvent>()
+	        {
+	            @Override public void handle(ActionEvent e)
+	            {
+								final Stage dialog = new Stage();
+                dialog.initModality(Modality.APPLICATION_MODAL);
+                dialog.initOwner(primaryStage);
+								dialog.setTitle("Exit?");
+                HBox dialogVbox = new HBox(20);
+
+								Button confirmExit = new Button("Exit");
+								confirmExit.setStyle("fx-background-color: red");
+
+								Button dontExit = new Button("Return to Program");
+				
+								confirmExit.setOnAction((new EventHandler<ActionEvent>()
+								{
+										@Override public void handle(ActionEvent e)
+											{								
+												System.exit(0);
+											}
+									}));
+
+								dontExit.setOnAction((new EventHandler<ActionEvent>()
+									{
+											@Override public void handle(ActionEvent e)
+											{
+												dialog.close();
+											}
+									}));
+								
+                dialogVbox.getChildren().add(dontExit);
+                dialogVbox.getChildren().add(confirmExit);
+								dialogVbox.setAlignment(Pos.CENTER);
+								dialogVbox.setStyle("-fx-background-color: lightblue");
+
+                Scene dialogScene = new Scene(dialogVbox, 300, 200);
+	
+                dialog.setScene(dialogScene);
+                dialog.show();
+
 	            }
 	        });
 			
@@ -167,6 +254,8 @@ public class Main extends Application {
 			root.add(searchBar, 1, 0);
 			root.add(login, 2, 0);
 			root.add(cart, 3, 0);
+			root.add(exit, 4, 0);
+
 			root.add(vbox, 0, 1, 1, 4);
 			root.add(clock, 0, 5);
 			root.add(item1View, 1, 1);
@@ -185,7 +274,9 @@ public class Main extends Application {
 			refreshClock();
 			
 			// Scene setup
-			Scene scene = new Scene(root, 1050, 950);
+
+			Scene scene = new Scene(root, 1200, 950);
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
             primaryStage.setTitle("BestBuy");
@@ -229,4 +320,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
+
