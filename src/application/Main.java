@@ -21,12 +21,11 @@ import javafx.geometry.Pos;
 import javafx.stage.*;
 import javafx.scene.layout.*;
 
+
 public class Main extends Application {
 	TextField clock;
 	
 	@Override
-	
-	
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		try {
 
@@ -158,6 +157,7 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
+
 								final Stage dialog = new Stage();
 								dialog.initModality(Modality.APPLICATION_MODAL);
 								dialog.initOwner(primaryStage);
@@ -240,6 +240,7 @@ public class Main extends Application {
 	
                 dialog.setScene(dialogScene);
                 dialog.show();
+
 	            }
 	        });
 			
@@ -254,6 +255,7 @@ public class Main extends Application {
 			root.add(login, 2, 0);
 			root.add(cart, 3, 0);
 			root.add(exit, 4, 0);
+
 			root.add(vbox, 0, 1, 1, 4);
 			root.add(clock, 0, 5);
 			root.add(item1View, 1, 1);
@@ -272,7 +274,9 @@ public class Main extends Application {
 			refreshClock();
 			
 			// Scene setup
+
 			Scene scene = new Scene(root, 1200, 950);
+
 			primaryStage.setScene(scene);
 			primaryStage.show();
             primaryStage.setTitle("BestBuy");
@@ -316,4 +320,6 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 }
+
