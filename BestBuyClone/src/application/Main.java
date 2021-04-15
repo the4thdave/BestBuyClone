@@ -8,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -15,21 +16,26 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException; 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import java.util.Date;
+import java.util.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.stage.*;
 import javafx.scene.layout.*;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 
 public class Main extends Application {
 	TextField clock;
+	int numOfItems = 0; 
+	double total = 0.0;
+	String cartItems = ""; 
+	
 	
 	@Override
 	public void start(Stage primaryStage) throws FileNotFoundException {
 		try {
 
-			fileIO Fileio = new fileIO();
 			
 			//clock text area
 	        clock = new TextField();
@@ -51,8 +57,9 @@ public class Main extends Application {
 			ImageView item1View = new ImageView(item1);
 			item1View.setFitHeight(170);
 			item1View.setFitWidth(350);
-			Label item1Price = new Label("Nvidia RTX 3080\n$699.99");
-			item1Price.setFont(new Font("Arial", 24));
+			double item1p = 699.99; 
+			Label item1Desc = new Label("Nvidia RTX 3080\n" + item1p);
+			item1Desc.setFont(new Font("Arial", 24));
 
 			Button addToCart1 = new Button("Add to Cart");
 			addToCart1.setStyle("-fx-background-color: yellow");
@@ -61,8 +68,10 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
-	            	 // Add to Cart button
-                     // blank for now
+	    			cartItems += "Nvidia RTX 3080\t";
+	    			cartItems += String.valueOf(item1p) + "\n";
+	    			numOfItems++; 
+	    			total += item1p;
 	            }
 	        });
 
@@ -71,8 +80,9 @@ public class Main extends Application {
 			ImageView item2View = new ImageView(item2);
 			item2View.setFitHeight(170);
 			item2View.setFitWidth(350);
-			Label item2Price = new Label("MSI GTX 1660 SUPER\n$269.99");
-			item2Price.setFont(new Font("Arial", 24));
+			double item2p = 269.99;
+			Label item2Desc = new Label("MSI GTX 1660 SUPER\n" + item2p);
+			item2Desc.setFont(new Font("Arial", 24));
 
 			Button addToCart2 = new Button("Add to Cart");
 			addToCart2.setStyle("-fx-background-color: yellow");
@@ -81,8 +91,10 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
-	            	 // Add to Cart button
-                     // blank for now
+	            	cartItems += "MSI GTX 1660 SUPER\t";
+	    			cartItems += String.valueOf(item2p) + "\n";
+	    			numOfItems++; 
+	    			total += item2p;
 	            }
 	        });
 
@@ -91,8 +103,9 @@ public class Main extends Application {
 			ImageView item3View = new ImageView(item3);
 			item3View.setFitHeight(170);
 			item3View.setFitWidth(350);
-			Label item3Price = new Label("Radeon RX590\n$299.99");
-			item3Price.setFont(new Font("Arial", 24));
+			double item3p = 299.99;
+			Label item3Desc = new Label("Radeon RX590\n" + item3p);
+			item3Desc.setFont(new Font("Arial", 24));
 
 			Button addToCart3 = new Button("Out of Stock");
 			addToCart3.setStyle("-fx-background-color: red");
@@ -101,8 +114,10 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
-	            	 // Add to Cart button
-                     // blank for now
+	            	cartItems += "Radeon RX590\t";
+	    			cartItems += String.valueOf(item3p) + "\n";
+	    			numOfItems++; 
+	    			total += item3p;
 	            }
 	        });
 
@@ -111,8 +126,9 @@ public class Main extends Application {
 			ImageView item4View = new ImageView(item4);
 			item4View.setFitHeight(170);
 			item4View.setFitWidth(340);
-			Label item4Price = new Label("13-inch MacBook Pro\n$1299.99");
-			item4Price.setFont(new Font("Arial", 24));
+			double item4p = 1299.99;
+			Label item4Desc = new Label("13-inch MacBook Pro\n" + item4p);
+			item4Desc.setFont(new Font("Arial", 24));
 
 			Button addToCart4 = new Button("Add to Cart");
 			addToCart4.setStyle("-fx-background-color: yellow");
@@ -121,8 +137,10 @@ public class Main extends Application {
 	        {
 	            @Override public void handle(ActionEvent e)
 	            {
-	            	 // Add to Cart button
-                     // blank for now
+	            	cartItems += "13-inch MacBook Pro\t";
+	    			cartItems += String.valueOf(item4p) + "\n";
+	    			numOfItems++; 
+	    			total += item4p;
 	            }
 	        });
 			
@@ -163,6 +181,13 @@ public class Main extends Application {
 								dialog.initOwner(primaryStage);
 								dialog.setTitle("Cart");
 
+								TextArea ta = new TextArea("");
+								TextArea ta2 = new TextArea("");
+								
+								ta.setText(cartItems);
+								
+								cartItems = "";
+								
 								Button exitCart = new Button("Exit From Cart");
 
 								Button checkout = new Button("Checkout");
@@ -179,17 +204,88 @@ public class Main extends Application {
 								{
 										@Override public void handle(ActionEvent e)
 										{
-											Fileio.wrTransactionData("Checkout Complete");
+							            	Platform.runLater(new Runnable() 
+											 {
+											        public void run() 
+											        {
+											        	String rs=null;
+											            socketUtils su = new socketUtils();
+											            
+											            if (su.socketConnect() == true) //this always seems to be false for whatever reason
+											            {
+											            	String strDouble = String.format("%.2f", total);
+											            	String msg = "Transaction>kiosk#001" + "," + numOfItems + "," + strDouble;
+							            	                su.sendMessage(msg);				            	
+							            	                String ackOrNack = su.recvMessage();
+							            	                
+							            	                
+							            	                msg = "quit";
+							            	                su.sendMessage(msg);
+							            	                rs = su.recvMessage();
+							            	                
+							            	                //
+							            	                // close the socket connection
+							            	                //
+							            	                su.closeSocket();
+							            	                
+							            	                // 
+							            	                // write to transaction log
+							            	                //
+							            	                msg = "CLIENT : Transaction>kiosk#001" + "," + numOfItems + "," + strDouble;
+							            	                fileIO trans = new fileIO();
+							            	                trans.wrTransactionData(msg);
+							            	                
+							            	                
+							            	                // initialize variables back to zero
+							            	                total=0.0;
+							            	                numOfItems=0;        
+							            	                
+							            	                ta.setText("");
+							            	                ta2.setText("");
+							            	                
+							            	                if (ackOrNack.startsWith("ACK") == true)
+							            	                {
+							            	                	ta2.setText("Success!    Message was received and processed by the Socket Server!");
+							            	                }
+							            	                else
+							            	                {
+							            	                   ta2.setText("RECV : " + ackOrNack);
+							            	                   ta2.appendText(rs);
+							            	                }
+											            }
+											            else
+											            {
+											            	// 
+							            	                // write to transaction log
+							            	                //
+											            	String strDouble = String.format("%.2f", total);
+							            	                String msg = "CLIENT NETWORK ERROR : Transaction>kiosk#001" + "," + numOfItems + "," + strDouble;
+							            	                
+							            	                fileIO trans = new fileIO();
+							            	                trans.wrTransactionData(msg);
+							            	                
+							            	                
+											            	Alert alert = new Alert(Alert.AlertType.ERROR);
+													        alert.setTitle("--- Network Communications Error ---");
+													        alert.setHeaderText("Unable to talk to Socket Server!");
+													          
+													        alert.showAndWait();
+											            }
+											        }
+											 });
 										}
+								
 								});
 
+								VBox cartSetup = new VBox(20);
 								HBox dialogVbox = new HBox(20);
 
 								dialogVbox.setAlignment(Pos.CENTER);
 								dialogVbox.getChildren().addAll(exitCart, checkout);
-								dialogVbox.setStyle("-fx-background-color: lightblue");
+								cartSetup.getChildren().addAll(ta, dialogVbox, ta2);
+								cartSetup.setStyle("-fx-background-color: lightblue");
 
-								Scene dialogScene = new Scene(dialogVbox, 300, 200);
+								Scene dialogScene = new Scene(cartSetup, 500, 400);
 	
 								dialog.setScene(dialogScene);
 								dialog.show();
@@ -259,16 +355,16 @@ public class Main extends Application {
 			root.add(vbox, 0, 1, 1, 4);
 			root.add(clock, 0, 5);
 			root.add(item1View, 1, 1);
-			root.add(item1Price, 2, 1);
+			root.add(item1Desc, 2, 1);
 			root.add(addToCart1, 3, 1);
 			root.add(item2View, 1, 2);
-			root.add(item2Price, 2, 2);
+			root.add(item2Desc, 2, 2);
 			root.add(addToCart2, 3, 2);
 			root.add(item3View, 1, 3);
-			root.add(item3Price, 2, 3);
+			root.add(item3Desc, 2, 3);
 			root.add(addToCart3, 3, 3);
 			root.add(item4View, 1, 4);
-			root.add(item4Price, 2, 4);
+			root.add(item4Desc, 2, 4);
 			root.add(addToCart4, 3, 4);
 
 			refreshClock();
