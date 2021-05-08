@@ -1,0 +1,11 @@
+03-15-2021 21.10.44 : Checkout
+04-11-2021 19.40.31 : Checkout Complete
+04-15-2021 23.52.38 : Checkout Complete
+04-15-2021 23.52.38 : Checkout Complete
+04-16-2021 00.24.06 : Checkout Complete
+04-16-2021 00.24.16 : Checkout Complete
+04-16-2021 03.06.17 : CLIENT NETWORK ERROR : Transaction>kiosk#001,6,6169.94
+04-16-2021 03.07.02 : CLIENT : Transaction>kiosk#001,8,7569.92
+04-16-2021 03.09.11 : CLIENT : Transaction>kiosk#001,2,969.98
+04-16-2021 03.12.44 : CLIENT : Transaction>kiosk#001,4,2969.96
+04-16-2021 03.12.56 : CLIENT : Transaction>kiosk#001,2,1399.98

@@ -1,4 +1,4 @@
-package application;
+package backend; 
 
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -22,6 +22,7 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Vector;
+
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -33,6 +34,9 @@ public class sockServer implements Runnable
 	   char threadType;
 
 	   static Vector<String> vec = new Vector<String>(5);
+	   
+	   public static Hashtable<String, kiosk> clients = 
+			     new Hashtable<String, kiosk>();
 	   
 	   static final String newline = "\n";
 	   static int first_time = 1;
