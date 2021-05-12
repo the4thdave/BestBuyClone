@@ -11,3 +11,10 @@ To install this program, simply download the project as a ZIP file. Then, open t
 ## Usage
 
 After you have installed the program, you can use the application by clicking "Add to Cart" on whatever items you would like to simulate purchasing. Then, click the "Cart" button and finally click the "Checkout" option.
+
+## Credits
+
+This program was created by the following developers:
+- David Munoz (https://github.com/the4thdave)
+- Aaron Tame (https://github.com/atame9)
+- Will Ptacek (https://github.com/willptacek)
