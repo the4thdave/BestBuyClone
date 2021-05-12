@@ -7,3 +7,7 @@ The goal of this project is to recreate BestBuy's website using Java and the Jav
 ## Installation
 
 To install this program, simply download the project as a ZIP file. Then, open the project folder in your IDE of choice and hit "Run" on the Main.java file.
+
+## Usage
+
+After you have installed the program, you can use the application by clicking "Add to Cart" on whatever items you would like to simulate purchasing. Then, click the "Cart" button and finally click the "Checkout" option.
