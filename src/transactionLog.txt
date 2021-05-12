@@ -1,0 +1,8 @@
+04-16-2021 03.07.01 : SERVER : Transaction>kiosk#001,8,7569.92
+04-16-2021 03.07.02 : SERVER : quit
+04-16-2021 03.09.10 : SERVER : Transaction>kiosk#001,2,969.98
+04-16-2021 03.09.11 : SERVER : quit
+04-16-2021 03.12.42 : SERVER : Transaction>kiosk#001,4,2969.96
+04-16-2021 03.12.43 : SERVER : quit
+04-16-2021 03.12.55 : SERVER : Transaction>kiosk#001,2,1399.98
+04-16-2021 03.12.56 : SERVER : quit
